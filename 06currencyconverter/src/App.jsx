@@ -1,14 +1,15 @@
 import { useState } from "react";
 import InputBox from "./components/InputBox";
 import useCurrencyInfo from "./hooks/useCurrencyInfo";
+
 function App() {
   const [amount, setAmount] = useState(0);
   const [from, setFrom] = useState("usd");
   const [to, setTo] = useState("inr");
   const [convertedAmount, setConvertedAmount] = useState(0);
 
-  const CurrencyInfo = useCurrencyInfo(from);
-  const options = Object.keys(CurrencyInfo);
+  const currencyInfo = useCurrencyInfo(from);
+  const options = Object.keys(currencyInfo);
 
   const swap = () => {
     setFrom(to);
@@ -18,14 +19,19 @@ function App() {
   };
 
   const convert = () => {
-    setConvertedAmount(amount * CurrencyInfo[to]);
+    const rate = currencyInfo[to];
+    if (rate) {
+      setConvertedAmount(amount * rate);
+    } else {
+      setConvertedAmount(0);
+    }
   };
 
   return (
     <div
       className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
       style={{
-        backgroundImage: `'https://images.pexels.com/photos/32396570/pexels-photo-32396570/free-photo-of-detailed-cryptocurrency-market-analysis-with-charts.jpeg?auto=compress&cs=tinysrgb&w=600')`,
+        backgroundImage: `url('https://images.pexels.com/photos/32396570/pexels-photo-32396570/free-photo-of-detailed-cryptocurrency-market-analysis-with-charts.jpeg?auto=compress&cs=tinysrgb&w=600')`,
       }}
     >
       <div className="w-full">
@@ -41,7 +47,7 @@ function App() {
                 label="From"
                 amount={amount}
                 currencyOptions={options}
-                onCurrencyChange={(currency) => setAmount(amount)}
+                onCurrencyChange={(currency) => setFrom(currency)}
                 selectCurrency={from}
                 onAmountChange={(amount) => setAmount(amount)}
               />
@@ -61,16 +67,16 @@ function App() {
                 amount={convertedAmount}
                 currencyOptions={options}
                 onCurrencyChange={(currency) => setTo(currency)}
-                selectCurrency={from}
-                onAmountChange={(convertedAmount)=>setAmount(convertedAmount)}
+                selectCurrency={to}
+                onAmountChange={(convertedAmount) => setAmount(convertedAmount)}
+                amountDisable={true}
               />
-              amountDisable
             </div>
             <button
               type="submit"
               className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg"
             >
-              Convert {from.toUpperCase()} to {to.toLocaleLowerCase()}
+              Convert {from.toUpperCase()} to {to.toUpperCase()}
             </button>
           </form>
         </div>

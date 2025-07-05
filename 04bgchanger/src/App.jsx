@@ -8,7 +8,7 @@ function App() {
       className="w-full h-screen duration-200"
       style={{ backgroundColor: color }}
     >
-      <div className="fixed flex flex-wrap justify-center bottom-12 inset-x-0 px-2">
+      <div className="fixed flex flex-wrap justify-center top-12 inset-x-0 px-2">
         <div className="flex flex-wrap justify-center gap-3 shadow-lg bg-white rounded-full px-3 py-3 round-3xl ">
           <button
             className="outline-none px-4 py-1 rounded-full text-white shadow-lg"
@@ -50,12 +50,36 @@ function App() {
             Black
           </button>
 
-            <button
+          <button
             className="outline-none px-4 py-1 rounded-full text-dark shadow-lg"
             style={{ backgroundColor: "pink" }}
             onClick={() => setColor("pink")}
           >
             Pink
+          </button>
+
+          <button
+            className="outline-none px-4 py-1 rounded-full text-dark shadow-lg"
+            style={{ backgroundColor: "lightblue" }}
+            onClick={() => setColor("lightblue")}
+          >
+            Light Blue
+          </button>
+
+          <button
+            className="outline-none px-4 py-1 rounded-full text-white shadow-lg"
+            style={{ backgroundColor: "purple" }}
+            onClick={() => setColor("purple")}
+          >
+            Purple
+          </button>
+
+          <button
+            className="outline-none px-4 py-1 rounded-full text-white shadow-lg"
+            style={{ backgroundColor: "olive" }}
+            onClick={() => setColor("olive")}
+          >
+            Olive
           </button>
         </div>
       </div>
